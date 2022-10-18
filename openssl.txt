@@ -1,0 +1,13 @@
+openssl req -x509 -sha256 -newkey rsa:4096 -keyout ca.key -out ca.crt -days 356 -nodes -subj '/CN=My Cert Authority'
+
+openssl req -new -newkey rsa:4096 -keyout server.key -out server.csr -nodes -subj '/CN=mydomain.com'
+openssl x509 -req -sha256 -days 365 -in server.csr -CA ca.crt -CAkey ca.key -set_serial 01 -out server.crt
+
+openssl req -new -newkey rsa:4096 -keyout client.key -out client.csr -nodes -subj '/CN=My Client'
+openssl x509 -req -sha256 -days 365 -in client.csr -CA ca.crt -CAkey ca.key -set_serial 02 -out client.crt
+
+source: https://kubernetes.github.io/ingress-nginx/examples/PREREQUISITES/#client-certificate-authentication
+
+
+mk create secret generic ca-secret --from-file=ca.crt=ca.crt
+mk create secret tls nginx-fqdn  --key server.key --cert server.pem 
