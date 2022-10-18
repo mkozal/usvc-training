@@ -1,3 +1,5 @@
+# prepare chain with server and client certs
+
 openssl req -x509 -sha256 -newkey rsa:4096 -keyout ca.key -out ca.crt -days 356 -nodes -subj '/CN=My Cert Authority'
 
 openssl req -new -newkey rsa:4096 -keyout server.key -out server.csr -nodes -subj '/CN=mydomain.com'
@@ -8,6 +10,9 @@ openssl x509 -req -sha256 -days 365 -in client.csr -CA ca.crt -CAkey ca.key -set
 
 source: https://kubernetes.github.io/ingress-nginx/examples/PREREQUISITES/#client-certificate-authentication
 
-
+# upload to k8s
 mk create secret generic ca-secret --from-file=ca.crt=ca.crt
 mk create secret tls nginx-fqdn  --key server.key --cert server.pem 
+
+# verification
+curl https://microk8s-vm/v2 --cert certs/client.crt --key certs/client.key 
