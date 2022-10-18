@@ -12,7 +12,7 @@ source: https://kubernetes.github.io/ingress-nginx/examples/PREREQUISITES/#clien
 
 # upload to k8s
 mk create secret generic ca-secret --from-file=ca.crt=ca.crt
-mk create secret tls nginx-fqdn  --key server.key --cert server.pem 
+mk create secret tls nginx-fqdn  --key server.key --cert server.crt 
 
 # verification
 curl https://microk8s-vm/v2 --cert certs/client.crt --key certs/client.key 
