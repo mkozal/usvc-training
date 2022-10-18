@@ -1,0 +1,45 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: hello
+  namespace: default
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    # Enable client certificate authentication
+    nginx.ingress.kubernetes.io/auth-tls-verify-client: "on"
+    # Create the secret containing the trusted ca certificates
+    nginx.ingress.kubernetes.io/auth-tls-secret: "default/ca-secret"
+    # Specify the verification depth in the client certificates chain
+    nginx.ingress.kubernetes.io/auth-tls-verify-depth: "1"
+    # Specify if certificates are passed to upstream server
+    nginx.ingress.kubernetes.io/auth-tls-pass-certificate-to-upstream: "true"
+spec:
+  ingressClassName: public
+  tls:
+  - hosts:
+      - 192.168.64.3
+    secretName: nginx
+  - hosts:
+      - microk8s-vm
+    secretName: nginx-fqdn
+  rules:
+  - http:
+      paths:
+      - path: /v1
+        pathType: Prefix
+        backend:
+          service:
+            name: helloworld
+            port:
+              number: 80
+
+  - host: microk8s-vm
+    http:
+      paths:
+      - path: /v2
+        pathType: Prefix
+        backend:
+          service:
+            name: helloworld2
+            port:
+              number: 80

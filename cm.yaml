@@ -1,0 +1,7 @@
+apiVersion: v1
+data:
+  index.html: |
+    ConfigMap test
+kind: ConfigMap
+metadata:
+  name: cm-test
