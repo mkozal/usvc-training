@@ -19,6 +19,10 @@ resource "helm_release" "istio_base" {
 }
 
 
+
+
+# sample resources to prove breaking kubernetes_manifest if CRD is missing
+
 resource "kubernetes_manifest" "istio_ingress_virtual_service" {
   count = 0
   manifest = {
@@ -31,7 +35,9 @@ resource "kubernetes_manifest" "istio_ingress_virtual_service" {
   }
   depends_on = [ helm_release.istio_base ]
 }
+
 resource "kubectl_manifest" "istio_ingress_virtual_service" {
+  count = 0
   yaml_body = <<YAML
 apiVersion: "networking.istio.io/v1alpha3"
 kind: "VirtualService"
