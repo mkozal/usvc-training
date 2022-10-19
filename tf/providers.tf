@@ -12,3 +12,12 @@ provider "kubernetes" {
   config_path = "~/.microk8s/config"
   #config_context = "my-context"
 }
+provider "helm" {
+  kubernetes {
+    config_path = "~/.microk8s/config"
+    #config_context = "my-context"
+  }
+  experiments {
+    manifest = true
+  }
+}

@@ -1,6 +1,6 @@
 resource "kubernetes_config_map" "tf_nginx_html" {
   metadata {
-    name      = "cm-test"
+    name = "cm-test"
     # implicit dependency, makes sure namespace exists before trying to create
     namespace = kubernetes_namespace.this.metadata[0].name
   }
