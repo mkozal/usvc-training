@@ -1,0 +1,2 @@
+# this example is for istio
+kubectl get crd -oname | grep --color=never 'istio.io' | xargs kubectl delete

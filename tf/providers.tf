@@ -3,6 +3,10 @@ terraform {
     random = {
       version = ">= 2.1.2"
     }
+    kubectl = {
+      source = "gavinbunney/kubectl"
+      version = "1.14.0"
+    }
   }
 
   required_version = "~> 1.3.0"
@@ -18,6 +22,7 @@ provider "helm" {
     #config_context = "my-context"
   }
   experiments {
-    manifest = true
+    # for previewing specific resource changes
+    manifest = false
   }
 }
