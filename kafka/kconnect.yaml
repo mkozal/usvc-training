@@ -46,6 +46,10 @@ spec:
           value: "org.apache.kafka.connect.json.JsonConverter"
         - name: "CONNECT_VALUE_CONVERTER"
           value: "org.apache.kafka.connect.json.JsonConverter"
+        - name: "CONNECT_KEY_CONVERTER_SCHEMAS_ENABLE"
+          value: "false"
+        - name: "CONNECT_VALUE_CONVERTER_SCHEMAS_ENABLE"
+          value: "false"
         - name: "CONNECT_REST_ADVERTISED_HOST_NAME"
           value: "kafka-connect"
         - name: "CONNECT_LOG4J_ROOT_LOGLEVEL"
@@ -96,10 +100,10 @@ spec:
   - IPv4
   ipFamilyPolicy: SingleStack
   ports:
-  - port: 9080
+  - port: 8083
     protocol: TCP
-    targetPort: 8080
-    nodePort: 32080
+    targetPort: 8083
+    nodePort: 30083
   selector:
     app: kafka-connect
   sessionAffinity: None

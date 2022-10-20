@@ -25,7 +25,7 @@ spec:
   rules:
   - http:
       paths:
-      - path: /v1
+      - path: /
         pathType: Prefix
         backend:
           service:
@@ -36,7 +36,7 @@ spec:
   - host: microk8s-vm
     http:
       paths:
-      - path: /v2
+      - path: /offline
         pathType: Prefix
         backend:
           service:

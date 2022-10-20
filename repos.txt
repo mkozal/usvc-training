@@ -1,0 +1,48 @@
+
+- e-shop:
+  # each component is a separate repo
+  - products
+  - orders
+  - reviews
+
+- e-shop:
+  # each component is a separate subdirectory
+  - products
+  - orders
+  - reviews
+
+---
+
+Trunk-based development -> merging to one branch (trunk) and building from it
+  - merge when feature is complete
+
+
+Git flow                         - release/1.2.x
+                                /
+  - develop ----------------------------------
+   \                          /         /
+    - feature/new-feature-1 -       2 -
+
+
+ - featurebranch -> deploy&test locally
+ - develop -> deploy to dev
+ - master/main -> deploy to test
+ # at this point "release" should be prepared
+ - releasebranch -> deploy stage/pre-prod (with tags!) & test
+                \
+                 \ -- validate migration process (rejects usually expected)
+                  \
+                    - (if everything OK) deploy the same to prod
+
+Git branch policies (e.g. push to master only using PR, min 2 approvers, build succeeds)
+
+
+Ephemeral envs - short-lived (minutes to months) -> testing of feature branches, PR build checks
+
+PR build checks:
+  - syntax validity
+  - memory leaks
+  - unit testing
+  - e2e testing
+
+

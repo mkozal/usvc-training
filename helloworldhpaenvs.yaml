@@ -58,3 +58,25 @@ spec:
           defaultMode: 420
           name: cm-test
         name: cm-test
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: helloworld2
+  name: helloworld2
+  namespace: default
+spec:
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: helloworld2
+  sessionAffinity: None
+  type: ClusterIP
+  clusterIP: None
