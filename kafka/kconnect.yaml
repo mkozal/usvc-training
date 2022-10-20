@@ -36,6 +36,12 @@ spec:
           value: "kafka-connect-offset"
         - name: "CONNECT_STATUS_STORAGE_TOPIC"
           value: "kafka-connect-status"
+        - name: "CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR"
+          value: "1"
+        - name: "CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR"
+          value: "1"
+        - name: "CONNECT_STATUS_STORAGE_REPLICATION_FACTOR"
+          value: "1"
         - name: "CONNECT_KEY_CONVERTER"
           value: "org.apache.kafka.connect.json.JsonConverter"
         - name: "CONNECT_VALUE_CONVERTER"
@@ -44,15 +50,27 @@ spec:
           value: "kafka-connect"
         - name: "CONNECT_LOG4J_ROOT_LOGLEVEL"
           value: "TRACE"
-            #        - name: "CONNECT_LOG4J_APPENDER_STDOUT"
-            #          value: "org.slf4j.impl.SimpleLoggerFactory"
+        - name: "CONNECT_PLUGIN_PATH"
+          value: "/usr/share/confluent-hub-components"
+        command:
+          - bash
+          - -c
+          - |
+            # Install connector plugins
+            # This will by default install into /usr/share/confluent-hub-components/ so make
+            #  sure that this path is added to the plugin.path in the environment variables
+            confluent-hub install --no-prompt confluentinc/kafka-connect-elasticsearch:latest
+            # Launch the Kafka Connect worker
+            /etc/confluent/docker/run # &
+            # Don't exit
+            #sleep infinity
         image: confluentinc/cp-kafka-connect
         imagePullPolicy: Always
         name: connect
         resources:
           limits:
             cpu: "1"
-            memory: 256Mi
+            memory: 1Gi
           requests:
             cpu: 250m
             memory: 256Mi
