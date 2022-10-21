@@ -20,13 +20,13 @@ Tasks:
     Install Kafka + create topic (hint: replications params may need to be adjusted)
     Run components (order, shipping, invoicing) and apache
     Enable traffic to apache
-    Test app accessibility + behaviour
+    Test app accessibility + behaviour (hint: one can use kcat -C and psql client to see what happens to the topic and DB, e.g. when invoicing is scaled to 0 and new order successfully created) 
 
     Switch routing from haproxy to Ingress resource
     Switch "main page" to standalone nginx (hint: use helloworld as reference)
     Remove apache from your cluster
     Adjust DB to use different (user +) pass (hints: secret modification, schema+permissions for pg, app env var)
-    Scale app -> observe Kafka group id behaviour
+    Scale a component up (>1 replica) -> observe Kafka group id behaviour
     Enable CPU based autoscaling (hint: resources setup needed)
     Have a debug ubuntu container running (hint: sleep + exec)
 
