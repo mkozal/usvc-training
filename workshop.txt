@@ -17,7 +17,8 @@ Tasks:
   Kafka: install using operator, helm chart or plain YAML manifests
   Microservice:
     Install postgresql using default setup 
-    Install Kafka + create topic
+    Install Kafka + create topic (hint: replications params may need to be adjusted)
+    Run components (order, shipping, invoicing) and apache
     Enable traffic to apache
     Test app accessibility + behaviour
 
