@@ -1,0 +1,56 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: apache-replacement
+  namespace: store
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  ingressClassName: public
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            # temporary until nginx-based landing is in place
+            #name: mskafka-apache
+            name: landing
+            port:
+              number: 80
+    host: store.microk8s-vm
+
+
+  - http:
+      paths:
+      - path: /order(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: order
+            port:
+              number: 8080
+    host: store.microk8s-vm
+
+  - http:
+      paths:
+      - path: /shipping(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: shipping
+            port:
+              number: 8080
+    host: store.microk8s-vm
+
+  - http:
+      paths:
+      - path: /invoicing(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: invoicing
+            port:
+              number: 8080
+    host: store.microk8s-vm

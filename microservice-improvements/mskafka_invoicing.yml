@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: mskafka-invoicing
+  name: mskafka-invoicing
+  namespace: store
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mskafka-invoicing
+  template:
+    metadata:
+      labels:
+        app: mskafka-invoicing
+    spec:
+      containers:
+      - image: mkozal/mskafka_invoicing
+        name: mskafka-invoicing
+        env:
+        - name: SPRING_KAFKA_BOOTSTRAP_SERVERS
+          valueFrom:
+            configMapKeyRef:
+              name: kafka-addr
+              key: kafka_addr
+        - name: SPRING_DATASOURCE_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: mskafka-psql-appsecret
+              key: username
+        - name: SPRING_DATASOURCE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mskafka-psql-appsecret
+              key: password
