@@ -14,7 +14,7 @@ Components:
 
 
 Tasks:
-  Kafka: install using
+  Kafka: install using operator, helm chart or plain YAML manifests
   Microservice:
     Install postgresql using default setup 
     Install Kafka + create topic
