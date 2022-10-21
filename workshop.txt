@@ -20,9 +20,9 @@ Tasks:
     Install Kafka + create topic (hint: replications params may need to be adjusted)
     Run components (order, shipping, invoicing) and apache
     Enable traffic to apache
-    Test app accessibility + behaviour (hint: one can use kcat -C and psql client to see what happens to the topic and DB, e.g. when invoicing is scaled to 0 and new order successfully created) 
+    Test app accessibility + behaviour (hint: one can use kcat -C and psql client to see what happens to the topic and DB, e.g. when invoicing is scaled to 0 and new order succesfully created)
 
-    Switch routing from haproxy to Ingress resource
+    Switch routing from haproxy to Ingress resource (hint: needs rewrite-target adjustment)
     Switch "main page" to standalone nginx (hint: use helloworld as reference)
     Remove apache from your cluster
     Adjust DB to use different (user +) pass (hints: secret modification, schema+permissions for pg, app env var)
