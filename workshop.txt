@@ -1,0 +1,45 @@
+Components:
+  - k8s cluster (assuming microk8s)
+  - microservice
+	https://github.com/prastamaha/microservice-kafka
+           ARM64 images at https://hub.docker.com/u/mkozal
+    Dockerfiles present in repo
+    - Apache -> to be replaced with nginx
+    - Kafka -> can use Strimzi or "plain" https://hub.docker.com/r/wurstmeister/kafka
+    - Postgresql (bundled)
+
+  - observability stack
+    - servicemesh (linkerd for convenience with microk8s)
+    - ELK + filebeats + metricbeats + kube-state-metrics
+
+
+Tasks:
+  Kafka: install using
+  Microservice:
+    Install postgresql using default setup 
+    Install Kafka + create topic
+    Enable traffic to apache
+    Test app accessibility + behaviour
+
+    Switch routing from haproxy to Ingress resource
+    Switch "main page" to standalone nginx (hint: use helloworld as reference)
+    Remove apache from your cluster
+    Adjust DB to use different (user +) pass (hints: secret modification, schema+permissions for pg, app env var)
+    Scale app -> observe Kafka group id behaviour
+    Enable CPU based autoscaling (hint: resources setup needed)
+    Have a debug ubuntu container running (hint: sleep + exec)
+
+  Distraction: quick workshop of container troubleshooting when using distroless
+	https://kubernetes.io/docs/tasks/debug/debug-application/debug-running-pod/#ephemeral-container
+
+
+  Observability:
+    Enable linkerd
+    Break components and observe behaviour
+    Setup ELK
+
+
+
+
+
+  
